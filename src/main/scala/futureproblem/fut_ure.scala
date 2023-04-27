@@ -2,6 +2,7 @@ package futureproblem
 import scala.concurrent.Future
 import scala.util.{Try,Failure, Success}
 import scala.concurrent.ExecutionContext.Implicits.global
+import scala.util.Random
 object fut_ure extends App{
 
   // Future is used for the computation
@@ -9,7 +10,12 @@ object fut_ure extends App{
   /// means if a piece of code is taking a longer duration so instead of blocking another set of code for that time
   // let that code run at the background and work with another set of code
   var fut1:Future[Int]= Future{
-    1219218    // dummy number (PS: My college roll number)
+        val ran=new Random
+    val random_num=ran.nextInt(10)
+    random_num match{
+      case n if(n<3) => 1219218     // dummy number (PS: My college roll number)
+      case _ => throw Exception("error")
+    }
   }
   var fut2:Future[String]= Future{
     "Anuj Saklani Completed the Assigmnent"   // returning a random string
