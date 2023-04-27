@@ -1,5 +1,7 @@
 package BinaryTreeAssignment
-
+import scala.collection.mutable.ListBuffer
+import scala.io.StdIn.readLine
+import scala.Option._
 object binarytree extends App{
   // create a case class for building nodes
   // we are taking it as an Option type because it can efficiently handle the unsafe cases too without any crash
@@ -61,6 +63,7 @@ def preorderTraversal(node:Option[Node]):Unit={
 
   // Now its the time to test my code
   var root=BT.build(4)  // building tree
+
   println("Pre Order traversal: ")
   preorderTraversal(root) // print the preorder traversal of the binary tree
 
@@ -69,4 +72,41 @@ def preorderTraversal(node:Option[Node]):Unit={
 
 
   println("Number of leaf nodes in tree: "+ leaf_nodes)
+
+  // New updates : Customized input list
+  val my_list= ListBuffer[Option[Int]]()
+  var input =""    // we cant take it as val because i have to variate it every time so it should be mutable
+var len=0
+  while(input!="stop"){
+    input = readLine()
+   if(input=="null"){ len+=1
+     my_list+= None}
+    else if(input!="stop") { len+=1
+     my_list += Some(input.toInt)
+    }
+  }
+  // just to check my list elements
+  my_list.foreach {
+    case Some(n)=> print(n + " ")
+    case None =>
+  }
+  //println(my_list(0))
+  println("")
+
+  def Build_tree(start:Int,end:Int):Option[Node]={
+
+    if(start>end)None
+    else{
+      val data = my_list(start)
+
+
+      val left=Build_tree((2*start)+1,end)
+      val right=Build_tree((2*start)+2,end)
+      if(data.isEmpty) Some(Node(-99,left,right))
+      else Some(Node(data.get,left,right))
+    }
+
+  }
+val Root= Build_tree(0,len-1)
+preorderTraversal(Root)
 }
