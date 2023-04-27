@@ -9,7 +9,7 @@ object fut_ure extends App{
   // for running the asynchronous block of code
   /// means if a piece of code is taking a longer duration so instead of blocking another set of code for that time
   // let that code run at the background and work with another set of code
-  var fut1:Future[Int]= Future{
+  val fut1:Future[Int]= Future{
         val ran=new Random
     val random_num=ran.nextInt(10)
     random_num match{
@@ -17,11 +17,11 @@ object fut_ure extends App{
       case _ => throw Exception("error")
     }
   }
-  var fut2:Future[String]= Future{
+  val fut2:Future[String]= Future{
     "Anuj Saklani Completed the Assigmnent"   // returning a random string
   }
  // using zip to combine both future
-  var result:Future[(Int,String)]=fut1.zip(fut2).flatMap{
+  val result:Future[(Int,String)]=fut1.zip(fut2).flatMap{
         // pattern matching concept
     case (int_stuff, string_stuff)=>
       Future.successful((int_stuff,string_stuff))  // if we hit a success then return a tuple
